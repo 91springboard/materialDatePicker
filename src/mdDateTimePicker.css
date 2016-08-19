@@ -1,36 +1,9 @@
-@charset "UTF-8";
 /* ==========  Color Palettes  ========== */
 /* colors.scss */
 /* Typography */
 /* Shadows */
 /* Animations */
 /* Dialog */
-/**
- * netTrek
- *
- * Dieses mixin erstellt erzeugt vendor-prefix Versionen der übergebenen Eigenschaft
- *
- * @param {String} $property
- *   Property to prefix
- *
- * @param {*} $value
- *   Value to use
- *
- * @param {List} $prefixes
- *   Prefixes to define
- *
- * @example scss - Usage
- *   .element {
- *       @include prefixer(border-radius, 10px, webkit ms spec);
- *   }
- *
- * @example css - CSS Output
- *   .element {
- *       -webkit-border-radius: 10px;
- *       -moz-border-radius: 10px;
- *       border-radius: 10px;
- *   }
- */
 .mddtp-button {
   height: 36px;
   min-width: 64px;
@@ -45,7 +18,7 @@
   text-transform: uppercase;
   outline: none;
   cursor: pointer;
-  color: #009688;
+  color: #e91e63;
   -webkit-appearance: button;
   overflow: visible;
   -webkit-tap-highlight-color: transparent;
@@ -81,7 +54,7 @@
   z-index: 99999; }
   .mddtp-picker .mddtp-picker__header {
     width: 100px;
-    background-color: #009688;
+    background-color: #e91e63;
     padding: 24px 24px 20px; }
     .mddtp-picker .mddtp-picker__header .mddtp-picker__title {
       color: rgba(255, 255, 255, 0.7);
@@ -113,11 +86,11 @@
     height: 100%; }
 
 .mddtp-picker-date .mddtp-picker__left {
-  background: url("../images/ic_keyboard_arrow_left_black_24px.svg");
+  background: url("../assets/images/ic_keyboard_arrow_left_black_24px.svg");
   left: 4px; }
 
 .mddtp-picker-date .mddtp-picker__right {
-  background: url("../images/ic_keyboard_arrow_right_black_24px.svg");
+  background: url("../assets/images/ic_keyboard_arrow_right_black_24px.svg");
   right: 4px; }
 
 .mddtp-picker-date .mddtp-picker__left,
@@ -148,10 +121,10 @@
     background-position: center; }
 
 .mddtp-picker-date .mddtp-picker__left:disabled {
-  background-image: url("../images/ic_keyboard_arrow_left_black_disabled_24px.svg"); }
+  background-image: url("../assets/images/ic_keyboard_arrow_left_black_disabled_24px.svg"); }
 
 .mddtp-picker-date .mddtp-picker__right:disabled {
-  background-image: url("../images/ic_keyboard_arrow_right_black_disabled_24px.svg"); }
+  background-image: url("../assets/images/ic_keyboard_arrow_right_black_disabled_24px.svg"); }
 
 .mddtp-picker__body .mddtp-picker__viewHolder {
   width: 314px;
@@ -196,10 +169,10 @@
       line-height: 36px;
       vertical-align: middle; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--today {
-        color: #009688;
+        color: #e91e63;
         font-weight: 600; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--selected, .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid .mddtp-picker__tr span.mddtp-picker__cell:hover {
-        background-color: #009688;
+        background-color: #e91e63;
         color: #fff; }
       .mddtp-picker__body .mddtp-picker__viewHolder .mddtp-picker__grid span.mddtp-picker__cell--disabled {
         color: rgba(0, 0, 0, 0.26);
@@ -230,7 +203,7 @@
     cursor: pointer; }
   .mddtp-picker__years .mddtp-picker__li--current {
     font-size: 21px;
-    color: #009688; }
+    color: #e91e63; }
   .mddtp-picker__years--invisible {
     display: none; }
 
@@ -313,7 +286,7 @@
   transition: 0.3s cubic-bezier(0.42, 0, 0.58, 1); }
   .mddtp-picker__selection span {
     display: inline-block;
-    background-color: #009688;
+    background-color: #e91e63;
     height: 2px;
     vertical-align: middle; }
     .mddtp-picker__selection span.mddtp-picker__dot {
@@ -1559,21 +1532,3 @@
   to {
     opacity: 0; } }
 
-/*
-* netTrek
-* disable selection
-*/
-.mddtp-picker-date, .mddtp-picker-time {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none; }
-
-/*
-* netTrek
-* disable -webkit-tap-highlight-color for iOS
-*/
-.mddtp-picker-time .mddtp-picker__circularView, .mddtp-picker-time .mddtp-time__circularHolder {
-  -webkit-tap-highlight-color: transparent; }
