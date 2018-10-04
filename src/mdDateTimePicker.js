@@ -832,12 +832,12 @@
                 e.target.parentNode.id = sHour;
                 // set the sDate according to 24 or 12 hour mode
                 if (me._mode) {
-                  setHour = parseInt(e.target.textContent, 10);
+                  setHour = parseInt(e.target.textContent%12);
                 } else {
                   if (me._sDialog.sDate.format('A') === 'AM') {
                     setHour = e.target.textContent;
                   } else {
-                    setHour = parseInt(e.target.textContent, 10) + 12;
+                    setHour = parseInt(e.target.textContent, 10)%12 + 12;
                   }
                 }
                 me._sDialog.sDate.hour(setHour);
