@@ -92,7 +92,8 @@
                     colon                   = _ref$colon === undefined ? !0 : _ref$colon,
                     dragDial                = _ref.dragDial === undefined ? true : _ref.dragDial,
                     allowMinutesDivisibleBy = _ref.allowMinutesDivisibleBy || 5,
-                    dateSelected            = _ref.dateSelected || moment(new Date);
+                    _ref$dateSelected        = _ref.dateSelected,
+                    dateSelected            = _ref$dateSelected === undefined ? moment() : _ref$dateSelected;
 
 
                 _classCallCheck(this, mdDateTimePicker);
@@ -109,6 +110,7 @@
                 this._colon = colon;
                 this._minutesDivisbleBy = allowMinutesDivisibleBy;
                 this._dragDialAllow = dragDial;
+                this._dateSelected = dateSelected;
 
                 /**
                  * [dialog selected classes have the same structure as dialog but one level down]
@@ -598,9 +600,14 @@
                         rotate     = 'mddtp-picker__cell--rotate-',
                         cell       = 'mddtp-picker__cell',
                         dateSelected = this._dateSelected,
+                        hourSelected = moment(this._dateSelected).get('hour'),
                         initDate = this._init,
                         docfrag    = document.createDocumentFragment();
-
+                    if(hourSelected===moment().get('hour')){
+                        if(minuteNow<moment().get('minute')){
+                            minuteNow = parseInt(moment().get('minute')/15)*15;
+                        }
+                    }
                     for (var i = 5, j = 10; i <= 60; i += 5, j += 10) {
                         if (i % this._minutesDivisbleBy !== 0) {
                             continue;
@@ -812,6 +819,9 @@
                         value          = void 0;
 
                     // toggle view classes
+                    if(me._sDialog.sDate<moment()){
+                        me._sDialog.sDate = moment().minutes((parseInt(moment().get('minute')/15)*15));
+                    }
                     me._initMinute();
 
                     hourView.classList.toggle(hidden);
