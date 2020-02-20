@@ -149,7 +149,7 @@
                         if (this._type === 'date') {
                             this._initDateDialog(this._init);
                         } else if (this._type === 'time') {
-                            if(!(moment(this._dateSelected).get('date')===moment(new Date).get('date')&&moment(this._dateSelected).get('hour')>12)){
+                            if(!(moment(this._dateSelected).get('date')===moment(new Date).get('date')&&moment(this._dateSelected).get('hour')>=12)){
                                 this._sDialog.AM.classList.remove('mddtp-picker__disabled');
                             }else{
                                 this._sDialog.AM.classList.add('mddtp-picker__disabled');
@@ -544,7 +544,7 @@
                             var currentHour = moment(new Date()).get('hour');
                             var currentMinutes = moment(new Date()).get('minute');
                             var ifAM = me._sDialog.sDate.format('A') === 'AM' ? true : false;
-                            if (currentHour > 12) {
+                            if (currentHour >= 12) {
                                 disableAM = true;
                             }
                         }
@@ -561,6 +561,7 @@
                                 _div.classList.add(selected);
                                 needle.classList.add(rotate + _j);
                             }
+                            // if disableAM == true, then it means time is in PM
                             if(disableAM){
                                 if(!ifAM){
                                     if(currentHour-12-_i>0){
@@ -571,12 +572,21 @@
                                     }
                                 }
                             }else{
+                              if(!ifAM){
+                                // if(currentHour>_i){
+                                //   _div.classList.add(disabled);
+                                // }
+                                // if(currentHour>=1 && _i==12){
+                                //   _div.classList.add(disabled);
+                                // }
+                              }else{
                                 if(currentHour>_i){
-                                    _div.classList.add(disabled);
+                                  _div.classList.add(disabled);
                                 }
-                                if(currentHour>=1 && _i==12){
-                                    _div.classList.add(disabled);
+                                if(currentHour!=12 && _i==12 ){
+                                  _div.classList.add(disabled);
                                 }
+                              }
                             }
                             _div.appendChild(_span);
                             docfrag.appendChild(_div);
@@ -1141,33 +1151,68 @@
                         dateSelected = this._dateSelected;
 
                     AM.onclick = function (e) {
+                      if(!e.target.classList.contains('mddtp-picker__disabled')){
                         if(moment(dateSelected).get('date')=== moment(new Date()).get('date')) {
+                          if(moment(me._sDialog.sDate).subtract(12, 'hour')<moment()){
+                            me._sDialog.sDate = moment().minutes((parseInt(moment().get('minute')/15)*15));
+                            dateSelected = me._sDialog.sDate;
+                            var currentHour = moment(dateSelected).get('hour');
+                            var currentMinute = moment(dateSelected).get('minute');
+                            if(currentHour < 12){
+                              var m = me._sDialog.sDate.format('A');
+
+                              AM.classList.toggle('mddtp-picker__color--active');
+                              PM.classList.toggle('mddtp-picker__color--active');
+
+                            }
+                            me._sDialog.sDate.hour(currentHour);
+                            // set the display hour
+                            me._sDialog.hour.textContent = currentHour;
+
+                            me._sDialog.sDate.minute(currentMinute);
+                            // set the display minute
+                            me._sDialog.minute.textContent = currentMinute;
+
+                            me._initHour();
+                            me._initMinute();
+                            me._switchToTimeView(me);
+                          }
+                          else{
                             var currentHour = moment(new Date).get('hour');
                             if(currentHour < 12){
-                                var m = me._sDialog.sDate.format('A');
-                                if (m === 'PM') {
-                                    me._sDialog.sDate.subtract(12, 'h');
-                                    AM.classList.toggle('mddtp-picker__color--active');
-                                    PM.classList.toggle('mddtp-picker__color--active');
-                                }
-                            }
-                        }else{
-                            var m = me._sDialog.sDate.format('A');
-                            if (m === 'PM') {
+                              var m = me._sDialog.sDate.format('A');
+                              if (m === 'PM') {
                                 me._sDialog.sDate.subtract(12, 'h');
                                 AM.classList.toggle('mddtp-picker__color--active');
                                 PM.classList.toggle('mddtp-picker__color--active');
+                              }
                             }
+
+                          }
+
+
+                        }else{
+                          var m = me._sDialog.sDate.format('A');
+                          if (m === 'PM') {
+                            me._sDialog.sDate.subtract(12, 'h');
+                            AM.classList.toggle('mddtp-picker__color--active');
+                            PM.classList.toggle('mddtp-picker__color--active');
+                          }
+                          //me._initHour();
+                          //me._initMinute();
                         }
+                      }
 
                     };
                     PM.onclick = function (e) {
+
                         var m = me._sDialog.sDate.format('A');
                         if (m === 'AM') {
                             me._sDialog.sDate.add(12, 'h');
                             AM.classList.toggle('mddtp-picker__color--active');
                             PM.classList.toggle('mddtp-picker__color--active');
                         }
+                      //me._initHour();
                     };
                 }
             }, {
