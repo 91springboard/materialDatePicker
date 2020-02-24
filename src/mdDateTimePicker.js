@@ -1212,7 +1212,7 @@
                             AM.classList.toggle('mddtp-picker__color--active');
                             PM.classList.toggle('mddtp-picker__color--active');
                         }
-                      //me._initHour();
+                      me._initHour();
                     };
                 }
             }, {
